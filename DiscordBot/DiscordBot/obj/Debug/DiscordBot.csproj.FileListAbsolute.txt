@@ -85,3 +85,4 @@ D:\Projekty\RetsotBot\DiscordBot\DiscordBot\obj\Debug\DiscordBot.csproj.CoreComp
 D:\Projekty\RetsotBot\DiscordBot\DiscordBot\obj\Debug\DiscordBot.csproj.CopyComplete
 D:\Projekty\RetsotBot\DiscordBot\DiscordBot\obj\Debug\DiscordBot.exe
 D:\Projekty\RetsotBot\DiscordBot\DiscordBot\obj\Debug\DiscordBot.pdb
+D:\Projekty\RetsotBot\DiscordBot\DiscordBot\bin\Debug\SystemLang\tournament.json

@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\DiscordBot",
-    "\\DiscordBot\\DiscordBot"
+    "\\DiscordBot\\DiscordBot",
+    "\\DiscordBot\\DiscordBot\\Modules",
+    "\\DiscordBot\\DiscordBot\\Resources"
   ],
-  "SelectedNode": "\\DiscordBot\\DiscordBot\\Program.cs",
+  "SelectedNode": "\\DiscordBot\\DiscordBot\\Resources\\config.json",
   "PreviewInSolutionExplorer": false
 }

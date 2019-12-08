@@ -8,7 +8,7 @@ using Discord.WebSocket;
 
 namespace DiscordBot
 {
-    class Program
+   public class Program
     {
 
         DiscordSocketClient _client;
@@ -38,5 +38,7 @@ namespace DiscordBot
         {
             Console.WriteLine(msg.Message);
         }
+
+
     }
 }
