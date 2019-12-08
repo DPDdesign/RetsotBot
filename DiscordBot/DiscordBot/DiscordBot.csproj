@@ -204,6 +204,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Player.cs" />
     <Compile Include="CommandHandler.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Modules\Misc.cs" />
