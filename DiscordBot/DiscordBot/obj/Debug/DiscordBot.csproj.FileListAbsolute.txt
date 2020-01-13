@@ -80,9 +80,9 @@ D:\Projekty\RetsotBot\DiscordBot\DiscordBot\bin\Debug\System.Collections.Immutab
 D:\Projekty\RetsotBot\DiscordBot\DiscordBot\bin\Debug\System.Diagnostics.DiagnosticSource.xml
 D:\Projekty\RetsotBot\DiscordBot\DiscordBot\bin\Debug\System.Interactive.Async.xml
 D:\Projekty\RetsotBot\DiscordBot\DiscordBot\obj\Debug\DiscordBot.csprojAssemblyReference.cache
-D:\Projekty\RetsotBot\DiscordBot\DiscordBot\obj\Debug\DiscordBot.exe.config
 D:\Projekty\RetsotBot\DiscordBot\DiscordBot\obj\Debug\DiscordBot.csproj.CoreCompileInputs.cache
 D:\Projekty\RetsotBot\DiscordBot\DiscordBot\obj\Debug\DiscordBot.csproj.CopyComplete
 D:\Projekty\RetsotBot\DiscordBot\DiscordBot\obj\Debug\DiscordBot.exe
 D:\Projekty\RetsotBot\DiscordBot\DiscordBot\obj\Debug\DiscordBot.pdb
 D:\Projekty\RetsotBot\DiscordBot\DiscordBot\bin\Debug\SystemLang\tournament.json
+D:\Projekty\RetsotBot\DiscordBot\DiscordBot\bin\Debug\Discord.Addons.Interactive.dll

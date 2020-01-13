@@ -5,21 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
+using Discord;
+using Discord.Commands;
 
 namespace DiscordBot
 {
     public class Utilities
     {
 
-        public static int playersnumber = 128;
+        public static  IUserMessage g; 
+
+        public static int playersnumber = 8;
         public static int playerscount = 0;
 
         private static Dictionary<string, string> alerts;
         private const string ConfigFolder = "SystemLang";
         private const string ConfigFile = "tournament.json";
-        static __Player playerobject = new __Player();
+        public static __Player playerobject = new __Player();
 
-        List<__Player> RandomPlayers = new List<__Player>();
+        public static List<__Player> RandomPlayers = new List<__Player>();
 
 
 
@@ -137,7 +141,7 @@ namespace DiscordBot
             playerobject.ChangePoints(DCN, points);
         }
 
-        void GenerateLobbies()
+        public static void GenerateLobbies()
         {
             RandomPlayers = playerobject.RandomizePlayers();
 
@@ -152,67 +156,153 @@ namespace DiscordBot
                 s.Remove(0);
             }
 
-            for (int i = 0; i < 8; i++)
+
+            switch(playersnumber)
             {
+                case 8:
+                     for (int i = 0; i < 8; i++)
+                     {            
+                        //8 graczy
+                        CopyTextA += "@" + RandomPlayers[i].DCN + "-" + RandomPlayers[i].IGN + "\n";
+                        TempLobby1.Add(new __Player() { IGN = RandomPlayers[i].IGN });
+                    }
+                break;
 
-                CopyTextA += "@" + RandomPlayers[i].DCN + "-" + RandomPlayers[i].IGN + "\n";
-                TempLobby1.Add(new __Player() { IGN = RandomPlayers[i].IGN });
+                case 16:
+                     for (int i = 0; i < 8; i++)
+                     {            
+                        //8 graczy
+                        CopyTextA += "@" + RandomPlayers[i].DCN + "-" + RandomPlayers[i].IGN + "\n";
+                        TempLobby1.Add(new __Player() { IGN = RandomPlayers[i].IGN });
+                
+                        //16graczy
+                        CopyTextB += "@" + RandomPlayers[i + 8].DCN + "-" + RandomPlayers[i + 8].IGN + "\n";
+                        TempLobby2.Add(new __Player() { IGN = RandomPlayers[i + 8].IGN });
+                    }
+                break;
 
-                CopyTextB += "@" + RandomPlayers[i + 8].DCN + "-" + RandomPlayers[i + 8].IGN + "\n";
-                TempLobby2.Add(new __Player() { IGN = RandomPlayers[i + 8].IGN });
+                case 32:
+                    for (int i = 0; i < 8; i++)
+                    {            
+                        //8 graczy
+                        CopyTextA += "@" + RandomPlayers[i].DCN + "-" + RandomPlayers[i].IGN + "\n";
+                        TempLobby1.Add(new __Player() { IGN = RandomPlayers[i].IGN });
+                
+                        //16graczy
+                        CopyTextB += "@" + RandomPlayers[i + 8].DCN + "-" + RandomPlayers[i + 8].IGN + "\n";
+                        TempLobby2.Add(new __Player() { IGN = RandomPlayers[i + 8].IGN });
+                 
+                        //32 graczy
+                        CopyTextC += "@" + RandomPlayers[i + 16].DCN + "-" + RandomPlayers[i + 16].IGN + "\n";
+                        TempLobby3.Add(new __Player() { IGN = RandomPlayers[i + 16].IGN });
 
-                CopyTextC += "@" + RandomPlayers[i + 16].DCN + "-" + RandomPlayers[i + 16].IGN + "\n";
-                TempLobby3.Add(new __Player() { IGN = RandomPlayers[i + 16].IGN });
+                        CopyTextD += "@" + RandomPlayers[i + 24].DCN + "-" + RandomPlayers[i + 24].IGN + "\n";
+                        TempLobby4.Add(new __Player() { IGN = RandomPlayers[i + 24].IGN });
+                    }
+                break;
 
-                CopyTextD += "@" + RandomPlayers[i + 24].DCN + "-" + RandomPlayers[i + 24].IGN + "\n";
-                TempLobby4.Add(new __Player() { IGN = RandomPlayers[i + 24].IGN });
+                case 64:
+                    for (int i = 0; i < 8; i++)
+                    {            
+                        //8 graczy
+                        CopyTextA += "@" + RandomPlayers[i].DCN + "-" + RandomPlayers[i].IGN + "\n";
+                        TempLobby1.Add(new __Player() { IGN = RandomPlayers[i].IGN });
+                
+                        //16graczy
+                        CopyTextB += "@" + RandomPlayers[i + 8].DCN + "-" + RandomPlayers[i + 8].IGN + "\n";
+                        TempLobby2.Add(new __Player() { IGN = RandomPlayers[i + 8].IGN });
+                 
+                        //32 graczy
+                        CopyTextC += "@" + RandomPlayers[i + 16].DCN + "-" + RandomPlayers[i + 16].IGN + "\n";
+                        TempLobby3.Add(new __Player() { IGN = RandomPlayers[i + 16].IGN });
 
-                //
+                        CopyTextD += "@" + RandomPlayers[i + 24].DCN + "-" + RandomPlayers[i + 24].IGN + "\n";
+                        TempLobby4.Add(new __Player() { IGN = RandomPlayers[i + 24].IGN });
 
-                CopyTextE += "@" + RandomPlayers[i + 32].DCN + "-" + RandomPlayers[i + 32].IGN + "\n";
-                TempLobby5.Add(new __Player() { IGN = RandomPlayers[i + 32].IGN });
+                
+                        //64 graczy
+                        CopyTextE += "@" + RandomPlayers[i + 32].DCN + "-" + RandomPlayers[i + 32].IGN + "\n";
+                        TempLobby5.Add(new __Player() { IGN = RandomPlayers[i + 32].IGN });
 
-                CopyTextF += "@" + RandomPlayers[i + 40].DCN + "-" + RandomPlayers[i + 40].IGN + "\n";
-                TempLobby6.Add(new __Player() { IGN = RandomPlayers[i + 40].IGN });
+                        CopyTextF += "@" + RandomPlayers[i + 40].DCN + "-" + RandomPlayers[i + 40].IGN + "\n";
+                        TempLobby6.Add(new __Player() { IGN = RandomPlayers[i + 40].IGN });
 
-                CopyTextG += "@" + RandomPlayers[i + 48].DCN + "-" + RandomPlayers[i + 48].IGN + "\n";
-                TempLobby7.Add(new __Player() { IGN = RandomPlayers[i + 48].IGN });
+                        CopyTextG += "@" + RandomPlayers[i + 48].DCN + "-" + RandomPlayers[i + 48].IGN + "\n";
+                        TempLobby7.Add(new __Player() { IGN = RandomPlayers[i + 48].IGN });
 
-                CopyTextH += "@" + RandomPlayers[i + 56].DCN + "-" + RandomPlayers[i + 56].IGN + "\n";
-                TempLobby8.Add(new __Player() { IGN = RandomPlayers[i + 56].IGN });
+                        CopyTextH += "@" + RandomPlayers[i + 56].DCN + "-" + RandomPlayers[i + 56].IGN + "\n";
+                        TempLobby8.Add(new __Player() { IGN = RandomPlayers[i + 56].IGN });  
+                    }           
+                break;
 
-                //
+                case 128:
+                        for (int i = 0; i < 8; i++)
+                        {
+               
 
-                CopyTextI += "@" + RandomPlayers[i + 64].DCN + "-" + RandomPlayers[i + 64].IGN + "\n";
-                TempLobby9.Add(new __Player() { IGN = RandomPlayers[i + 64].IGN });
+                            //8 graczy
+                            CopyTextA += "@" + RandomPlayers[i].DCN + "-" + RandomPlayers[i].IGN + "\n";
+                            TempLobby1.Add(new __Player() { IGN = RandomPlayers[i].IGN });
+                
+                            //16graczy
+                            CopyTextB += "@" + RandomPlayers[i + 8].DCN + "-" + RandomPlayers[i + 8].IGN + "\n";
+                            TempLobby2.Add(new __Player() { IGN = RandomPlayers[i + 8].IGN });
+                 
+                            //32 graczy
+                            CopyTextC += "@" + RandomPlayers[i + 16].DCN + "-" + RandomPlayers[i + 16].IGN + "\n";
+                            TempLobby3.Add(new __Player() { IGN = RandomPlayers[i + 16].IGN });
 
-                CopyTextJ += "@" + RandomPlayers[i + 72].DCN + "-" + RandomPlayers[i + 72].IGN + "\n";
-                TempLobby10.Add(new __Player() { IGN = RandomPlayers[i + 72].IGN });
+                            CopyTextD += "@" + RandomPlayers[i + 24].DCN + "-" + RandomPlayers[i + 24].IGN + "\n";
+                            TempLobby4.Add(new __Player() { IGN = RandomPlayers[i + 24].IGN });
 
-                CopyTextK += "@" + RandomPlayers[i + 80].DCN + "-" + RandomPlayers[i + 80].IGN + "\n";
-                TempLobby11.Add(new __Player() { IGN = RandomPlayers[i + 80].IGN });
+                
+                            //64 graczy
+                            CopyTextE += "@" + RandomPlayers[i + 32].DCN + "-" + RandomPlayers[i + 32].IGN + "\n";
+                            TempLobby5.Add(new __Player() { IGN = RandomPlayers[i + 32].IGN });
 
-                CopyTextL += "@" + RandomPlayers[i + 88].DCN + "-" + RandomPlayers[i + 88].IGN + "\n";
-                TempLobby12.Add(new __Player() { IGN = RandomPlayers[i + 88].IGN });
+                            CopyTextF += "@" + RandomPlayers[i + 40].DCN + "-" + RandomPlayers[i + 40].IGN + "\n";
+                            TempLobby6.Add(new __Player() { IGN = RandomPlayers[i + 40].IGN });
 
-                //
+                            CopyTextG += "@" + RandomPlayers[i + 48].DCN + "-" + RandomPlayers[i + 48].IGN + "\n";
+                            TempLobby7.Add(new __Player() { IGN = RandomPlayers[i + 48].IGN });
 
-                CopyTextM += "@" + RandomPlayers[i + 96].DCN + "-" + RandomPlayers[i + 96].IGN + "\n";
-                TempLobby13.Add(new __Player() { IGN = RandomPlayers[i + 96].IGN });
+                            CopyTextH += "@" + RandomPlayers[i + 56].DCN + "-" + RandomPlayers[i + 56].IGN + "\n";
+                            TempLobby8.Add(new __Player() { IGN = RandomPlayers[i + 56].IGN });
 
-                CopyTextN += "@" + RandomPlayers[i + 104].DCN + "-" + RandomPlayers[i + 104].IGN + "\n";
-                TempLobby14.Add(new __Player() { IGN = RandomPlayers[i + 104].IGN });
+                            //128
+                            CopyTextI += "@" + RandomPlayers[i + 64].DCN + "-" + RandomPlayers[i + 64].IGN + "\n";
+                            TempLobby9.Add(new __Player() { IGN = RandomPlayers[i + 64].IGN });
 
-                CopyTextO += "@" + RandomPlayers[i + 112].DCN + "-" + RandomPlayers[i + 112].IGN + "\n";
-                TempLobby15.Add(new __Player() { IGN = RandomPlayers[i + 112].IGN });
+                            CopyTextJ += "@" + RandomPlayers[i + 72].DCN + "-" + RandomPlayers[i + 72].IGN + "\n";
+                            TempLobby10.Add(new __Player() { IGN = RandomPlayers[i + 72].IGN });
 
-                CopyTextP += "@" + RandomPlayers[i + 120].DCN + "-" + RandomPlayers[i + 120].IGN + "\n";
-                TempLobby16.Add(new __Player() { IGN = RandomPlayers[i + 120].IGN });
+                            CopyTextK += "@" + RandomPlayers[i + 80].DCN + "-" + RandomPlayers[i + 80].IGN + "\n";
+                            TempLobby11.Add(new __Player() { IGN = RandomPlayers[i + 80].IGN });
+
+                            CopyTextL += "@" + RandomPlayers[i + 88].DCN + "-" + RandomPlayers[i + 88].IGN + "\n";
+                            TempLobby12.Add(new __Player() { IGN = RandomPlayers[i + 88].IGN });
+               
+                            CopyTextM += "@" + RandomPlayers[i + 96].DCN + "-" + RandomPlayers[i + 96].IGN + "\n";
+                            TempLobby13.Add(new __Player() { IGN = RandomPlayers[i + 96].IGN });
+
+                            CopyTextN += "@" + RandomPlayers[i + 104].DCN + "-" + RandomPlayers[i + 104].IGN + "\n";
+                            TempLobby14.Add(new __Player() { IGN = RandomPlayers[i + 104].IGN });
+
+                            CopyTextO += "@" + RandomPlayers[i + 112].DCN + "-" + RandomPlayers[i + 112].IGN + "\n";
+                            TempLobby15.Add(new __Player() { IGN = RandomPlayers[i + 112].IGN });
+
+                            CopyTextP += "@" + RandomPlayers[i + 120].DCN + "-" + RandomPlayers[i + 120].IGN + "\n";
+                            TempLobby16.Add(new __Player() { IGN = RandomPlayers[i + 120].IGN });
+                    
+                        }
+                break;
+
             }
+
+
+
+            
         }
-
-
-
 
 
         public static string DiscordNames = "";
@@ -264,7 +354,7 @@ namespace DiscordBot
             ListOfString.Add(CopyTextO);
             ListOfString.Add(CopyTextP);
             int j = 1;
-            for (int i = 0; i < 128 - playerscount; i+=0)
+            for (int i = 0; i < playersnumber - playerscount; i+=0)
             {
                 GeneratePlayer("Random#" + j, "RandomName" + j);
                 j++;

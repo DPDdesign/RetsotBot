@@ -5,14 +5,124 @@ using System.Text;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
+using Discord.Addons.Interactive;
 
 namespace DiscordBot.Modules
 {
 
-
-
-    public class Misc : ModuleBase<SocketCommandContext>
+    public class Misc : InteractiveBase //ModuleBase<SocketCommandContext>
     {
+        [Command("delete")]
+        public async Task<RuntimeResult> Test_DeleteAfterAsync()
+        {
+            await ReplyAndDeleteAsync("this message will delete in 10 seconds", timeout: TimeSpan.FromSeconds(10));
+            return Ok();
+        } 
+
+
+
+        [Command("next", RunMode = RunMode.Async)]
+        public async Task Test_NextMessageAsync()
+        {
+            await ReplyAsync("What is 2+2?");
+            var response = await NextMessageAsync();
+            if (response != null)
+                await ReplyAsync($"You replied: {response.Content}");
+            else
+                await ReplyAsync("You did not reply before the timeout");
+        }
+
+        [Command("Me")]
+        public async Task Me()
+        {
+            string text = "";
+            List<IMessage> listofmessages = new List<IMessage>();
+            IEnumerable<IMessage> messages = await Context.Channel.GetMessagesAsync(1).FlattenAsync();
+            listofmessages = messages.ToList<IMessage>();
+
+
+            text+= listofmessages[0].Author;
+            await ReplyAsync(text);
+            
+        } 
+
+
+        [Command("OpenSignUp")]
+        public async Task OpenSignUp([Remainder]string message)
+        {
+            string[] options = message.Split('|');
+            var embed = new EmbedBuilder();
+
+            embed.WithTitle(options[0]);
+            embed.WithDescription(options[1] + " Sign Up for tournament now open! \n Want to join? React with the :white_check_mark: emoji to this message. \n Make sure you have enough time to play before you do though." );
+            embed.WithColor(new Color(0, 255, 0));
+            embed.WithFooter(footer => footer.Text = "Event start:" + options [2]);
+            //embed.WithThumbnailUrl(Context.User.GetAvatarUrl());
+            //embed.WithUrl("https://example.com");
+            //embed.WithCurrentTimestamp();
+
+            IUserMessage m = await Context.Channel.SendMessageAsync(null, false, embed.Build());
+            Utilities.g = m;
+            
+        }
+
+
+        [Command("CloseSignUp")]
+        public async Task CloseSignUp(int number)
+        {
+            var emoji = new Emoji("✅");
+            string text = "SignUp is closed! \n Following players are in: \n \n";
+            var reactedusers = await Utilities.g.GetReactionUsersAsync(emoji, number).FlattenAsync();
+            List<IUser> asList = reactedusers.ToList();
+
+            foreach (IUser k in reactedusers)
+            {
+                text += k.Mention + "\n";
+            }
+            IUserMessage m = await ReplyAsync(text + "Now please write your IGN to check in!");
+        }
+
+
+        [Command("getplayers")]
+        public async Task PurgeChat(int amount)
+        {
+            string text = "";
+            List<IMessage> listofmessages = new List<IMessage>();
+            IEnumerable<IMessage> messages = await Context.Channel.GetMessagesAsync(amount+1).FlattenAsync();
+            listofmessages = messages.ToList<IMessage>();
+            listofmessages.RemoveAt(0);
+
+
+            await ((ITextChannel)Context.Channel).DeleteMessagesAsync(messages);
+            foreach (IMessage k in listofmessages)
+            {
+                if (k.Author.IsBot) { text += k.Content + "\n"; }
+                else{Utilities.GeneratePlayer(k.Author.ToString(),k.Content);}                                                                   
+            }
+
+                            Utilities.StartUp();
+                foreach (__Player p in Utilities.playerobject.InputList){
+                text+= " @" + p.DCN + " - " + p.IGN + "\n";    
+                }  
+           // const int delay = 3000;
+            var emoji = new Emoji("U0002705");
+            IUserMessage m = await ReplyAsync("Here is a player list: \n" + text);
+
+            // IUserMessage x = await ReplyAsync(reactedUsers.ToString);
+            //await Task.Delay(delay);
+            //await m.DeleteAsync();
+        }
+
+        [Command("GenerateLobbies")]
+        public async Task Test_Paginator()
+        {
+            Utilities.StartUp();
+            Utilities.GenerateLobbies();
+
+            var pages = new[] { Utilities.CopyTextA, Utilities.CopyTextB, Utilities.CopyTextC, Utilities.CopyTextD, Utilities.CopyTextE};
+            await PagedReplyAsync(pages);
+        }
+
 
         [Command("Tiebreak")]
         public async Task Pickone([Remainder]string message)
@@ -58,22 +168,24 @@ namespace DiscordBot.Modules
 
         }
 
-        [Command("getmessages")]
-        public async Task PurgeChat(int amount)
+        [Command("getcheckins")]
+        public async Task getcheckins(int amount)
         {
-            string text = "";
+            string text ="";
             List<IMessage> listofmessages = new List<IMessage>();
             IEnumerable<IMessage> messages = await Context.Channel.GetMessagesAsync(amount + 1).FlattenAsync();
             listofmessages = messages.ToList<IMessage>();
             listofmessages.RemoveAt(0);
-            //await ((ITextChannel)Context.Channel).DeleteMessagesAsync(messages);
+            await ((ITextChannel)Context.Channel).DeleteMessagesAsync(messages);
             foreach (IMessage k in listofmessages)
             {
-                text += k.Content + "\n";
+
+                Utilities.GeneratePlayer("@" + k.Author, k.Content);
+               text = Utilities.GeneratePlayersList();
             }
             const int delay = 3000;
             IUserMessage m = await ReplyAsync(text);
-            //await Task.Delay(delay);
+            await Task.Delay(delay);
             //await m.DeleteAsync();
         }
 
