@@ -6,6 +6,16 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using Discord.Addons.Interactive;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Sheets.v4;
+using Google.Apis.Sheets.v4.Data;
+using Google.Apis.Services;
+using Google.Apis.Util.Store;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading;
+
 
 namespace DiscordBot.Modules
 {
@@ -55,7 +65,7 @@ namespace DiscordBot.Modules
 
             embed.WithTitle(options[0]);
             embed.WithDescription(options[1] + " Sign Up for tournament now open! \n Want to join? React with the :white_check_mark: emoji to this message. \n Make sure you have enough time to play before you do though." );
-            embed.WithColor(new Color(0, 255, 0));
+            embed.WithColor(new Discord.Color(0, 255, 0));
             embed.WithFooter(footer => footer.Text = "Event start:" + options [2]);
             //embed.WithThumbnailUrl(Context.User.GetAvatarUrl());
             //embed.WithUrl("https://example.com");
@@ -114,7 +124,7 @@ namespace DiscordBot.Modules
         }
 
         [Command("GenerateLobbies")]
-        public async Task Test_Paginator()
+        public async Task GenerateLobbies()
         {
             Utilities.StartUp();
             Utilities.GenerateLobbies();
@@ -122,6 +132,44 @@ namespace DiscordBot.Modules
             var pages = new[] { Utilities.CopyTextA, Utilities.CopyTextB, Utilities.CopyTextC, Utilities.CopyTextD, Utilities.CopyTextE};
             await PagedReplyAsync(pages);
         }
+
+        [Command("ReadPoints")]
+        public async Task ReadPoints()
+        {
+            Utilities.SetPoints();
+            //Utilities.StartUp();
+            //Utilities.GenerateLobbies();
+          // Utilities.SetPoints();
+            //var pages = new[] { Utilities.CopyTextA, Utilities.CopyTextB, Utilities.CopyTextC, Utilities.CopyTextD, Utilities.CopyTextE};
+            await Context.Channel.SendMessageAsync("DX");
+        }
+
+                [Command("WriteToSpreadsheet")]
+        public async Task WriteToSpreadsheet([Remainder]string message)
+        {
+            string[] options = message.Split('|');   
+              var oblist = new List<object>();
+
+            int k = options.Count();
+           for(int i=2; i<k; i++)
+            {
+                oblist.Add(options[i]);
+            }
+
+            var ValueRange = new ValueRange();
+          
+           // oblist.Add(options[2]);
+            ValueRange.Values = new List<IList<object>> { oblist };
+
+            
+
+            Program.WriteToSpreadsheet(options[0],options[1],oblist);
+           await Context.Channel.SendMessageAsync("XD");
+
+        }
+
+
+        
 
 
         [Command("Tiebreak")]
@@ -232,7 +280,7 @@ namespace DiscordBot.Modules
                 Utilities.GeneratePlayer(DCN, IGN);
                 embed.WithTitle("Welcome!");
                 embed.WithDescription(Context.User.Mention + " you have succesfully checked in as: \n" + IGN);
-                embed.WithColor(new Color(0, 255, 0));
+                embed.WithColor(new Discord.Color(0, 255, 0));
                 embed.WithFooter(footer => footer.Text = "Current players checked in: " + Utilities.playerscount + "/ 128");
                 embed.WithThumbnailUrl(Context.User.GetAvatarUrl());
                 //embed.WithUrl("https://example.com");

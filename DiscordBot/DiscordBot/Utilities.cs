@@ -7,6 +7,11 @@ using Newtonsoft.Json;
 using System.IO;
 using Discord;
 using Discord.Commands;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Sheets.v4;
+using Google.Apis.Sheets.v4.Data;
+using Google.Apis.Services;
+using Google.Apis.Util.Store;
 
 namespace DiscordBot
 {
@@ -144,7 +149,7 @@ namespace DiscordBot
         public static void GenerateLobbies()
         {
             RandomPlayers = playerobject.RandomizePlayers();
-
+            ClearCopyTexts();
 
             foreach (List<__Player> l in ListOfLobbies)
             {
@@ -164,7 +169,7 @@ namespace DiscordBot
                      {            
                         //8 graczy
                         CopyTextA += "@" + RandomPlayers[i].DCN + "-" + RandomPlayers[i].IGN + "\n";
-                        TempLobby1.Add(new __Player() { IGN = RandomPlayers[i].IGN });
+                        TempLobby1.Add(new __Player() { IGN = RandomPlayers[i].IGN, DCN =RandomPlayers[i].DCN });
                     }
                 break;
 
@@ -300,10 +305,78 @@ namespace DiscordBot
             }
 
 
+            var ValueRange = new ValueRange();
+            var oblist = new List<object>();
+           // var oblist2 = new List<object>();
+            oblist.Add(CopyTextA);
+            //oblist2.Add(RandomPlayers[0].IGN);
+            //oblist2.Add(RandomPlayers[0].DCN);
+
+            int icounter = 4;
+            string sicounter;
+            for(int i =0; i<playersnumber; i++)
+            {
+                sicounter = icounter.ToString();
+                var oblist1 = new List<object>();
+                oblist1.Add(RandomPlayers[i].IGN);
+                oblist1.Add(RandomPlayers[i].DCN);
+                sicounter = icounter.ToString();
+                Program.WriteToSpreadsheet("R1","B"+sicounter,oblist1);
+                icounter++;
+                /*
+                var oblist2 = new List<object>();
+                oblist2.Add(RandomPlayers[i+8].IGN);
+                oblist2.Add(RandomPlayers[i+8].DCN);
+                sicounter = icounter.ToString();
+                Program.WriteToSpreadsheet("R1","F"+sicounter,oblist2);
+
+                var oblist3 = new List<object>();
+                oblist3.Add(RandomPlayers[i+16].IGN);
+                oblist3.Add(RandomPlayers[i+16].DCN);
+                sicounter = icounter.ToString();
+                Program.WriteToSpreadsheet("R1","J"+sicounter,oblist3);
+
+                var oblist4 = new List<object>();
+                oblist4.Add(RandomPlayers[i+24].IGN);
+                oblist4.Add(RandomPlayers[i+24].DCN);
+                sicounter = icounter.ToString();
+                Program.WriteToSpreadsheet("R1","N"+sicounter,oblist4);
+                icounter++;*/
+            }
+
+                    Program.WriteToSpreadsheet("R1","F4",oblist);
+
+
+
+
+                
+
+            
+    
+           // Program.WriteToSpreadsheet2("R1","B4",objNewRecords);
 
             
         }
+        
+        public static void SetPoints()
 
+        {   
+            List<int> listofpoints = new List<int>();//IList<IList<Object>> listofpoints = Program.ReadFromSpreadSheet("R1","A1:E");
+           // listofpoints.Add(5);
+            Program.ReadEntries(listofpoints);
+            int counter = 0;
+            foreach(int v in listofpoints)
+            { 
+                RandomPlayers[counter].Score = v;
+                Console.WriteLine(RandomPlayers[counter].IGN + "  " + RandomPlayers[counter].Score);
+                counter++;            
+} 
+            //Console.WriteLine("XD");
+            // foreach (__Player p in RandomPlayers){
+               // p.Score = System.Convert.ToInt32(listofpoints[3]);
+            //Console.WriteLine(p.Score);
+            
+        }
 
         public static string DiscordNames = "";
         public static string GameNames = "";
@@ -366,6 +439,28 @@ namespace DiscordBot
         {
             string txt = playerobject.PlayersList.Count().ToString() + " pcount  " + playerscount;
             return txt;
+        }
+
+        static void ClearCopyTexts(){
+         CopyTextA = "LOBBY 1 \r\n";
+         CopyTextB = "LOBBY 2 \r\n";
+         CopyTextC = "LOBBY 3 \r\n";
+         CopyTextD = "LOBBY 4 \r\n";
+
+         CopyTextE = "LOBBY 5 \r\n";
+         CopyTextF = "LOBBY 6 \r\n";
+         CopyTextG = "LOBBY 7 \r\n";
+         CopyTextH = "LOBBY 8 \r\n";
+
+         CopyTextI = "LOBBY 9 \r\n";
+         CopyTextJ = "LOBBY 10 \r\n";
+         CopyTextK = "LOBBY 11 \r\n";
+         CopyTextL = "LOBBY 12 \r\n";
+
+         CopyTextM = "LOBBY 13 \r\n";
+         CopyTextN = "LOBBY 14 \r\n";
+         CopyTextO = "LOBBY 15 \r\n";
+         CopyTextP = "LOBBY 16 \r\n";
         }
 
         public static List<__Player> TempLobby1 = new List<__Player>();

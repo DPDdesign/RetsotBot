@@ -14,8 +14,6 @@ using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 
@@ -27,7 +25,7 @@ namespace DiscordBot
 
         static readonly string[] Scopes = { SheetsService.Scope.Spreadsheets };
         static SheetsService service;
-        static String spreadsheetId = "1Z85dCVAAJ8YjDNnh_6WKOMWWq3mB4Vi6jENDWit1-yg";
+        public static String spreadsheetId = "1Z85dCVAAJ8YjDNnh_6WKOMWWq3mB4Vi6jENDWit1-yg";
         static string ApplicationName = "Google Sheets API .NET Quickstart";
         
         
@@ -86,8 +84,11 @@ namespace DiscordBot
           //  ReadEntries();
           //  CreateEntry();
           //UpdateEntry();
-            DeleteEntry();
-            new Program().StartAsync().GetAwaiter().GetResult(); }
+          //  DeleteEntry();
+
+
+            new Program().StartAsync().GetAwaiter().GetResult(); 
+        }
 
      //   static string[] Scopes = { SheetsService.Scope.Spreadsheets};
        
@@ -143,10 +144,10 @@ namespace DiscordBot
             await commands.ExecuteAsync(context, argPos, services);
         }
 
-        static void ReadEntries(){
+        public static void ReadEntries(List<int> listtoreturn){
         // Define request parameters.
-           
-            String range = "Players!A1:E";
+          
+            String range = "R1!A4:D35";
             SpreadsheetsResource.ValuesResource.GetRequest request =
                     service.Spreadsheets.Values.Get(spreadsheetId, range);
 
@@ -154,24 +155,69 @@ namespace DiscordBot
             // https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
             ValueRange response = request.Execute();
             IList<IList<Object>> values = response.Values;
+            //List<int> ListToReturn = new List<int>();
             if (values != null && values.Count > 0)
             {
                 Console.WriteLine("Name, Major");
                 foreach (var row in values)
                 {
-                    // Print columns A and E, which correspond to indices 0 and 4.
-                    Console.WriteLine("{0}, {1}", row[0], row[0]);
 
+                    // Print columns A and E, which correspond to indices 0 and 4.
+                    listtoreturn.Add(System.Convert.ToInt32(row[3]));
+                   // Console.WriteLine(row[3]);
                 }
             }
             else
             {
                 Console.WriteLine("No data found.");
             }
-            Console.Read();
+            //Console.Read();
+
+            //return ListToReturn;
          }
 
-        static void CreateEntry()
+         public static  IList<IList<Object>> ReadFromSpreadSheet(string readsheetname, string readrange)
+         {
+            String ReadRange = readsheetname + "!" +readrange;
+            SpreadsheetsResource.ValuesResource.GetRequest request =
+                    service.Spreadsheets.Values.Get(spreadsheetId, ReadRange);
+
+            ValueRange response = request.Execute();
+            IList<IList<Object>> values = response.Values;
+            return values;
+         }
+
+
+         public static void WriteToSpreadsheet(string sheetname, string range, List<object> objectlist)
+        {
+                var Range = sheetname + "!" +range;
+                var ValueRange = new ValueRange();
+                var Oblist = objectlist;
+                ValueRange.Values = new List<IList<object>> { Oblist };
+                var spreadsheetId = Program.spreadsheetId;
+
+    var updateRequest = service.Spreadsheets.Values.Update(ValueRange, spreadsheetId, Range);
+    updateRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
+    var appendReponse = updateRequest.Execute();
+        }
+
+
+                 public static void WriteToSpreadsheet2(string sheetname, string range, List<IList<object>> objectlist)
+        {
+                var Range = sheetname + "!" +range;
+                var ValueRange = new ValueRange();
+                var Oblist = objectlist;
+                ValueRange.Values = objectlist;
+                var spreadsheetId = Program.spreadsheetId;
+
+    var updateRequest = service.Spreadsheets.Values.Update(ValueRange, spreadsheetId, Range);
+    updateRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
+    var appendReponse = updateRequest.Execute();
+        }
+
+
+
+        public static void CreateEntry()
         {
             var range = "Players!A:F";
             var valueRange = new ValueRange();
