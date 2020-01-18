@@ -30,7 +30,7 @@ namespace DiscordBot
 
         public static List<__Player> RandomPlayers = new List<__Player>();
 
-
+        public static int roundnumber = 1;
 
         static Utilities()
         {
@@ -110,7 +110,7 @@ namespace DiscordBot
 
         public static string GeneratePlayersList()
         {
-            int i = 1;
+            
             string text = "";
             foreach (__Player p in playerobject.PlayersList)
             {
@@ -131,6 +131,26 @@ namespace DiscordBot
             return text;
         }
 
+        public static void EndRound()
+        { roundnumber +=1;          
+        }
+
+        public static void WiteLeaderBoardToSpreadsheet()
+        {   int jcounter = 2;
+            
+            foreach (__Player p in playerobject.LeaderBoardList(playerobject.PlayersList))
+            {
+                var oblist = new List<object>();
+                oblist.Add(p.IGN);
+                oblist.Add(p.DCN);
+                oblist.Add(p.Score);
+                string column = "B";
+                column += jcounter.ToString();
+                Program.WriteToSpreadsheet("Leaderboard",column,oblist);
+                jcounter ++;
+            }
+        }
+
         public static void ChangeDCN(string OldDCN, string NewDCN)
         {
             playerobject.ChangeDiscordName(OldDCN, NewDCN);
@@ -145,7 +165,7 @@ namespace DiscordBot
         {
             playerobject.ChangePoints(DCN, points);
         }
-
+        
         public static void GenerateLobbies()
         {
             RandomPlayers = playerobject.RandomizePlayers();
@@ -303,25 +323,58 @@ namespace DiscordBot
                 break;
 
             }
+            List<string> ListOfCopyTexts = new List<string>();
+            
+                            ListOfCopyTexts.Add(CopyTextA);
+                            ListOfCopyTexts.Add(CopyTextB);
+                            ListOfCopyTexts.Add(CopyTextC);
+                            ListOfCopyTexts.Add(CopyTextD);
+
+                            ListOfCopyTexts.Add(CopyTextE);
+                            ListOfCopyTexts.Add(CopyTextF);
+                            ListOfCopyTexts.Add(CopyTextG);
+                            ListOfCopyTexts.Add(CopyTextH);
+
+                            ListOfCopyTexts.Add(CopyTextI);
+                            ListOfCopyTexts.Add(CopyTextJ);
+                            ListOfCopyTexts.Add(CopyTextK);
+                            ListOfCopyTexts.Add(CopyTextL);
+
+                            ListOfCopyTexts.Add(CopyTextM);
+                            ListOfCopyTexts.Add(CopyTextN);
+                            ListOfCopyTexts.Add(CopyTextO);
+                            ListOfCopyTexts.Add(CopyTextP);
+
+            string y = roundnumber.ToString();
+            string  roundstring = "R"+y;
+            int jcounter = 4;
 
 
-            var ValueRange = new ValueRange();
+            for(int i = 0; i<playersnumber/8; i++){
             var oblist = new List<object>();
-           // var oblist2 = new List<object>();
-            oblist.Add(CopyTextA);
-            //oblist2.Add(RandomPlayers[0].IGN);
-            //oblist2.Add(RandomPlayers[0].DCN);
+            oblist.Add(ListOfCopyTexts[i]);
+            string x = jcounter.ToString();
+            string k = "F" + x;           
+            Program.WriteToSpreadsheet(roundstring,k,oblist);
+            jcounter +=8;
+            }
+    
+
+
+           // var ValueRange = new ValueRange();
+            
 
             int icounter = 4;
             string sicounter;
             for(int i =0; i<playersnumber; i++)
             {
+
                 sicounter = icounter.ToString();
                 var oblist1 = new List<object>();
                 oblist1.Add(RandomPlayers[i].IGN);
                 oblist1.Add(RandomPlayers[i].DCN);
                 sicounter = icounter.ToString();
-                Program.WriteToSpreadsheet("R1","B"+sicounter,oblist1);
+                Program.WriteToSpreadsheet("R" + roundnumber.ToString(),"B"+sicounter,oblist1);
                 icounter++;
                 /*
                 var oblist2 = new List<object>();
@@ -344,39 +397,68 @@ namespace DiscordBot
                 icounter++;*/
             }
 
-                    Program.WriteToSpreadsheet("R1","F4",oblist);
-
-
-
-
-                
-
-            
-    
            // Program.WriteToSpreadsheet2("R1","B4",objNewRecords);
 
             
         }
         
+        public static void GetPoints()
+        {
+            int icounter = 4;
+            string sicounter;
+
+            Program.ReadEntries();
+              /* 
+            IList<IList<Object>> PointList = Program.ReadFromSpreadSheet("R" + roundnumber.ToString(), "C4:D");
+            
+            foreach (var row in PointList)
+            {
+                   Console.WriteLine(row[3]);
+            }
+
+         foreach (__Player p in RandomPlayers)
+            {
+                p.Score = PointList[0]
+                sicounter = icounter.ToString();
+                var oblist1 = new List<object>();
+
+                sicounter = icounter.ToString();
+                Program.WriteToSpreadsheet("R" + roundnumber.ToString(),"B"+sicounter,oblist1);
+                icounter++;
+            } */
+        }
+
         public static void SetPoints()
 
         {   
-            List<int> listofpoints = new List<int>();//IList<IList<Object>> listofpoints = Program.ReadFromSpreadSheet("R1","A1:E");
-           // listofpoints.Add(5);
-            Program.ReadEntries(listofpoints);
+            List <int> listofpoints = new List<int>();
+            listofpoints = Program.ReadEntries();//IList<IList<Object>> listofpoints = Program.ReadFromSpreadSheet("R1","A1:E");
+           // listofpoints.Add(5);    
+           int x = 0;
+            foreach (__Player p in RandomPlayers)
+            {
+                p.Score+=listofpoints[x]; 
+                Console.WriteLine(p.Score);
+                x++;
+                
+            }
+            /*
             int counter = 0;
             foreach(int v in listofpoints)
             { 
                 RandomPlayers[counter].Score = v;
                 Console.WriteLine(RandomPlayers[counter].IGN + "  " + RandomPlayers[counter].Score);
                 counter++;            
-} 
+            }  */
             //Console.WriteLine("XD");
             // foreach (__Player p in RandomPlayers){
                // p.Score = System.Convert.ToInt32(listofpoints[3]);
             //Console.WriteLine(p.Score);
             
         }
+
+
+
 
         public static string DiscordNames = "";
         public static string GameNames = "";

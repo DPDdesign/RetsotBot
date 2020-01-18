@@ -92,6 +92,15 @@ namespace DiscordBot.Modules
             IUserMessage m = await ReplyAsync(text + "Now please write your IGN to check in!");
         }
 
+        [Command("Endround")]
+        public async Task Endround()
+        {
+            Context.Channel.SendMessageAsync ("Round ended! Writing results to database, please wait a second!");
+            Utilities.SetPoints();
+            Utilities.EndRound();
+            Utilities.WiteLeaderBoardToSpreadsheet();
+            IUserMessage m = await ReplyAsync("Succesfully written data to Leaderboard: http://tiny.cc/0eeviz! Good luck in next round!");
+        }
 
         [Command("getplayers")]
         public async Task PurgeChat(int amount)
@@ -107,15 +116,18 @@ namespace DiscordBot.Modules
             foreach (IMessage k in listofmessages)
             {
                 if (k.Author.IsBot) { text += k.Content + "\n"; }
-                else{Utilities.GeneratePlayer(k.Author.ToString(),k.Content);}                                                                   
+                else if (Utilities.playerobject.PlayersList.Count < Utilities.playersnumber) {
+                        Utilities.GeneratePlayer(k.Author.ToString(),k.Content);
+                }
+                else Context.Channel.SendMessageAsync("Player list is full!");
             }
 
-                            Utilities.StartUp();
+                        //    Utilities.StartUp();
                 foreach (__Player p in Utilities.playerobject.InputList){
                 text+= " @" + p.DCN + " - " + p.IGN + "\n";    
                 }  
            // const int delay = 3000;
-            var emoji = new Emoji("U0002705");
+          //  var emoji = new Emoji("U0002705");
             IUserMessage m = await ReplyAsync("Here is a player list: \n" + text);
 
             // IUserMessage x = await ReplyAsync(reactedUsers.ToString);

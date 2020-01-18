@@ -31,7 +31,7 @@ namespace DiscordBot
         
         static void Main(string[] args)
         {
-            string credpath = "token.json";
+          //  string credpath = "token.json";
 
                             GoogleCredential credential;
                 using (var stream = new FileStream("credentials.json", FileMode.Open, FileAccess.Read))
@@ -144,10 +144,10 @@ namespace DiscordBot
             await commands.ExecuteAsync(context, argPos, services);
         }
 
-        public static void ReadEntries(List<int> listtoreturn){
+        public static List<int> ReadEntries(){
         // Define request parameters.
           
-            String range = "R1!A4:D35";
+            String range = "R1!A4:D";
             SpreadsheetsResource.ValuesResource.GetRequest request =
                     service.Spreadsheets.Values.Get(spreadsheetId, range);
 
@@ -155,16 +155,21 @@ namespace DiscordBot
             // https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
             ValueRange response = request.Execute();
             IList<IList<Object>> values = response.Values;
-            //List<int> ListToReturn = new List<int>();
+            List<int> ListToReturn = new List<int>();
             if (values != null && values.Count > 0)
             {
                 Console.WriteLine("Name, Major");
+
+                
                 foreach (var row in values)
                 {
-
+                    ListToReturn.Add(System.Convert.ToInt32(row[3]));
                     // Print columns A and E, which correspond to indices 0 and 4.
-                    listtoreturn.Add(System.Convert.ToInt32(row[3]));
+                    //Console.WriteLine(row[3]);
                    // Console.WriteLine(row[3]);
+                   //Console.WriteLine(ListToReturn[0]);
+                //   Utilities.RandomPlayers[xcounter].Score += System.Convert.ToInt32(row[3]);
+                  //  xcounter++;
                 }
             }
             else
@@ -173,7 +178,7 @@ namespace DiscordBot
             }
             //Console.Read();
 
-            //return ListToReturn;
+            return ListToReturn;
          }
 
          public static  IList<IList<Object>> ReadFromSpreadSheet(string readsheetname, string readrange)

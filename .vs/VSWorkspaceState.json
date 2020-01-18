@@ -4,10 +4,11 @@
     "\\DiscordBot",
     "\\DiscordBot\\DiscordBot",
     "\\DiscordBot\\DiscordBot\\Modules",
+    "\\DiscordBot\\DiscordBot\\Resources",
     "\\DiscordBot\\packages",
     "\\DiscordBot\\packages\\Discord.Addons.Interactive.1.0.1",
     "\\DiscordBot\\packages\\Discord.Addons.Interactive.1.0.1\\lib"
   ],
-  "SelectedNode": "\\DiscordBot\\DiscordBot\\Modules\\Misc.cs",
+  "SelectedNode": "\\DiscordBot\\DiscordBot\\Utilities.cs",
   "PreviewInSolutionExplorer": false
 }
