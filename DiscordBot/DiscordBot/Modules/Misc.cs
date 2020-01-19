@@ -19,9 +19,11 @@ using System.Threading;
 
 namespace DiscordBot.Modules
 {
-
+    
     public class Misc : InteractiveBase //ModuleBase<SocketCommandContext>
     {
+        bool startedup = false;
+
         [Command("delete")]
         public async Task<RuntimeResult> Test_DeleteAfterAsync()
         {
@@ -64,7 +66,7 @@ namespace DiscordBot.Modules
             var embed = new EmbedBuilder();
 
             embed.WithTitle(options[0]);
-            embed.WithDescription(options[1] + " Sign Up for tournament now open! \n Want to join? React with the :white_check_mark: emoji to this message. \n Make sure you have enough time to play before you do though." );
+            embed.WithDescription("@" + options[1] + " Sign Up for tournament now open! \n Want to join? React with the :white_check_mark: emoji to this message. \n The prizing is as follows: \n 1st - 3 eggs, 1 emote \n 2nd - 2 eggs, 1 emote \n 3rd - 2 emotes \n 4th - 1 emote \n Make sure you have enough time to play before you do though." );
             embed.WithColor(new Discord.Color(0, 255, 0));
             embed.WithFooter(footer => footer.Text = "Event start:" + options [2]);
             //embed.WithThumbnailUrl(Context.User.GetAvatarUrl());
@@ -138,7 +140,9 @@ namespace DiscordBot.Modules
         [Command("GenerateLobbies")]
         public async Task GenerateLobbies()
         {
-            Utilities.StartUp();
+          if(!startedup)  
+            {Utilities.StartUp();
+            startedup=true;}
             Utilities.GenerateLobbies();
 
             var pages = new[] { Utilities.CopyTextA, Utilities.CopyTextB, Utilities.CopyTextC, Utilities.CopyTextD, Utilities.CopyTextE};
