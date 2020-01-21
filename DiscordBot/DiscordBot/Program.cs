@@ -248,7 +248,3 @@ namespace DiscordBot
         }
     }
 }
-
-/* 2:30PM,EST 1/21/2020
-*   -- Cleaned up white space and improved alignment accross all functions
-*/
