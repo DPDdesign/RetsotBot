@@ -1,4 +1,4 @@
-using System;
+﻿ng System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -182,13 +182,3 @@ namespace DiscordBot
         }
     }
 }
-
-/* 
-*   2:42PM,EST 1/21/2020
-*   -- Cleaned up white space and improved alignment accross all functions
-*   -- Removed unneccisary brackets
-*   -- Translated Polish to English through google translate
-*       - pierwszy toster                           -> first toaster
-*       - Jezeli zadaje wiecej - daj go na poczatek -> If he asks more - give him a start
-*       - Jezeli zadaje mniej - sortuj              -> If he asks less - sort
-*/
