@@ -19,7 +19,6 @@ using System.Threading;
 
 namespace DiscordBot.Modules
 {
-    
     public class Misc : InteractiveBase //ModuleBase<SocketCommandContext>
     {
         bool startedup = false;
@@ -30,8 +29,6 @@ namespace DiscordBot.Modules
             await ReplyAndDeleteAsync("this message will delete in 10 seconds", timeout: TimeSpan.FromSeconds(10));
             return Ok();
         } 
-
-
 
         [Command("next", RunMode = RunMode.Async)]
         public async Task Test_NextMessageAsync()
@@ -52,12 +49,9 @@ namespace DiscordBot.Modules
             IEnumerable<IMessage> messages = await Context.Channel.GetMessagesAsync(1).FlattenAsync();
             listofmessages = messages.ToList<IMessage>();
 
-
             text+= listofmessages[0].Author;
             await ReplyAsync(text);
-            
         } 
-
 
         [Command("OpenSignUp")]
         public async Task OpenSignUp([Remainder]string message)
@@ -77,7 +71,6 @@ namespace DiscordBot.Modules
             Utilities.g = m;
             
         }
-
 
         [Command("CloseSignUp")]
         public async Task CloseSignUp(int number)
@@ -113,28 +106,33 @@ namespace DiscordBot.Modules
             listofmessages = messages.ToList<IMessage>();
             listofmessages.RemoveAt(0);
 
-
             await ((ITextChannel)Context.Channel).DeleteMessagesAsync(messages);
             foreach (IMessage k in listofmessages)
             {
-                if (k.Author.IsBot) { text += k.Content + "\n"; }
-                else if (Utilities.playerobject.PlayersList.Count < Utilities.playersnumber) {
+                if (k.Author.IsBot) 
+                { 
+                    text += k.Content + "\n"; 
+                }
+                else if (Utilities.playerobject.PlayersList.Count < Utilities.playersnumber)
+                {
                         Utilities.GeneratePlayer(k.Author.ToString(),k.Content);
                 }
                 else Context.Channel.SendMessageAsync("Player list is full!");
             }
 
-                        //    Utilities.StartUp();
-                foreach (__Player p in Utilities.playerobject.InputList){
+            //    Utilities.StartUp();
+            foreach (__Player p in Utilities.playerobject.InputList)
+            {
                 text+= " @" + p.DCN + " - " + p.IGN + "\n";    
-                }  
-           // const int delay = 3000;
-          //  var emoji = new Emoji("U0002705");
-            IUserMessage m = await ReplyAsync("Here is a player list: \n" + text);
+            }  
 
-            // IUserMessage x = await ReplyAsync(reactedUsers.ToString);
-            //await Task.Delay(delay);
-            //await m.DeleteAsync();
+        // const int delay = 3000;
+        //  var emoji = new Emoji("U0002705");
+        IUserMessage m = await ReplyAsync("Here is a player list: \n" + text);
+
+        // IUserMessage x = await ReplyAsync(reactedUsers.ToString);
+        //await Task.Delay(delay);
+        //await m.DeleteAsync();
         }
 
         [Command("GenerateLobbies")]
@@ -155,38 +153,31 @@ namespace DiscordBot.Modules
             Utilities.SetPoints();
             //Utilities.StartUp();
             //Utilities.GenerateLobbies();
-          // Utilities.SetPoints();
+            // Utilities.SetPoints();
             //var pages = new[] { Utilities.CopyTextA, Utilities.CopyTextB, Utilities.CopyTextC, Utilities.CopyTextD, Utilities.CopyTextE};
             await Context.Channel.SendMessageAsync("DX");
         }
 
-                [Command("WriteToSpreadsheet")]
+        [Command("WriteToSpreadsheet")]
         public async Task WriteToSpreadsheet([Remainder]string message)
         {
             string[] options = message.Split('|');   
-              var oblist = new List<object>();
+            var oblist = new List<object>();
 
             int k = options.Count();
-           for(int i=2; i<k; i++)
+            for(int i=2; i<k; i++)
             {
                 oblist.Add(options[i]);
             }
 
             var ValueRange = new ValueRange();
           
-           // oblist.Add(options[2]);
+            // oblist.Add(options[2]);
             ValueRange.Values = new List<IList<object>> { oblist };
 
-            
-
             Program.WriteToSpreadsheet(options[0],options[1],oblist);
-           await Context.Channel.SendMessageAsync("XD");
-
+            await Context.Channel.SendMessageAsync("XD");
         }
-
-
-        
-
 
         [Command("Tiebreak")]
         public async Task Pickone([Remainder]string message)
@@ -196,40 +187,29 @@ namespace DiscordBot.Modules
             Random r = new Random();
             string selection = options[r.Next(0, options.Length)];
 
-
             var embed = new EmbedBuilder();
 
             embed.WithTitle("I have chosen:");
             embed.WithDescription(selection);
 
-
             await Context.Channel.SendMessageAsync("", false, embed.Build());
-
         }
 
         [Command("test")]
         public async Task test()
         {
-
             var embed = new EmbedBuilder();
-
             embed.WithDescription("Number of objects: " + Utilities.x());
-
             await Context.Channel.SendMessageAsync("", false, embed.Build());
-
         }
 
         [Command("ListrangeIGN")]
         public async Task ListrangeIGN([Remainder]string message)
         {
             string[] options = message.Split('|');
-
             var embed = new EmbedBuilder();
             embed.WithDescription(Utilities.GenerateIGNFrom(Convert.ToInt32(options[0]), Convert.ToInt32(options[1])));
-
-
             await Context.Channel.SendMessageAsync("", false, embed.Build());
-
         }
 
         [Command("getcheckins")]
@@ -243,9 +223,8 @@ namespace DiscordBot.Modules
             await ((ITextChannel)Context.Channel).DeleteMessagesAsync(messages);
             foreach (IMessage k in listofmessages)
             {
-
                 Utilities.GeneratePlayer("@" + k.Author, k.Content);
-               text = Utilities.GeneratePlayersList();
+                text = Utilities.GeneratePlayersList();
             }
             const int delay = 3000;
             IUserMessage m = await ReplyAsync(text);
@@ -258,12 +237,9 @@ namespace DiscordBot.Modules
         public async Task ListrangeDCN([Remainder]string message)
         {
             string[] options = message.Split('|');
-
             var embed = new EmbedBuilder();
             embed.WithDescription(Utilities.GenerateDCNFrom(Convert.ToInt32(options[0]), Convert.ToInt32(options[1])));
-
             await Context.Channel.SendMessageAsync("", false, embed.Build());
-
         }
 
 
@@ -271,10 +247,8 @@ namespace DiscordBot.Modules
         public async Task format([Remainder]string message)
         {
             var embed = new EmbedBuilder();
-
             Utilities.playersnumber = Convert.ToInt32(message);
             embed.WithDescription("format set to: " + message + " players");
-
             await Context.Channel.SendMessageAsync("", false, embed.Build());
 
         }
@@ -285,11 +259,7 @@ namespace DiscordBot.Modules
         {
             string DCN = Context.User.ToString();
             string IGN = Context.Message.ToString().Remove(0, 9);
-            
-
             var embed = new EmbedBuilder();
-
-
 
             //if (!Utilities.checkedin.Contains(DCN))
             //{   
@@ -303,18 +273,14 @@ namespace DiscordBot.Modules
                 embed.WithCurrentTimestamp();
                 Utilities.checkedin.Add(DCN);
             //}
-
             //else
             //{
-     //           embed.WithTitle("WARNING!");
-   //             embed.WithDescription("You have already checked in!");
- //           }
-
+            //    embed.WithTitle("WARNING!");
+            //    embed.WithDescription("You have already checked in!");
+            //}
             await Context.Channel.SendMessageAsync(null, false, embed.Build());
 
         }
-
-
 
         [Command("ChangeDCN")]
         public async Task changeDCN([Remainder]string message)
@@ -331,7 +297,6 @@ namespace DiscordBot.Modules
         [Command("ChangeIGN")]
         public async Task changeIGN([Remainder]string message)
         {
-
             string[] options = message.Split('|');
 
             var embed = new EmbedBuilder();
@@ -343,7 +308,6 @@ namespace DiscordBot.Modules
         [Command("ChangeScore")]
         public async Task changeScore([Remainder]string message)
         {
-
             string[] options = message.Split('|');
 
             var embed = new EmbedBuilder();
@@ -360,54 +324,46 @@ namespace DiscordBot.Modules
             embed.WithDescription("Good luck \n  " + (Utilities.playersnumber - Utilities.playerscount) + " Random playersgenerated");
             Utilities.StartUp();
             await Context.Channel.SendMessageAsync("", false, embed.Build());
-
         }
 
         [Command("ListIGN")]
         public async Task IGN()
         {
             var embed = new EmbedBuilder();
-
             embed.WithTitle("List of game names:");
             embed.WithDescription(Utilities.GenerateIGN());
             await Context.Channel.SendMessageAsync("", false, embed.Build());
-
         }
 
         [Command("ListDCN")]
         public async Task DCN()
         {
             var embed = new EmbedBuilder();
-
             embed.WithTitle("List of Discord tags:");
             embed.WithDescription(Utilities.GenerateDCN());
             await Context.Channel.SendMessageAsync("", false, embed.Build());
-
         }
 
         [Command("ListPlayers")]
         public async Task Players()
         {
             var embed = new EmbedBuilder();
-
             embed.WithTitle("List of players:");
             embed.WithDescription(Utilities.GeneratePlayersList());
             await Context.Channel.SendMessageAsync("", false, embed.Build());
-
         }
 
         [Command("Leaderboard")]
         public async Task Leaderboard()
         {
             var embed = new EmbedBuilder();
-
             embed.WithTitle("List of players:");
             embed.WithDescription(Utilities.GenerateLeaderboard());
             await Context.Channel.SendMessageAsync("", false, embed.Build());
-
         }
 
         #region old
+       
         /*
         [Command("Checkin")]
         public async Task Checkin([Remainder]string message)
@@ -417,119 +373,95 @@ namespace DiscordBot.Modules
             Utilities.playerscount ++;
 
             var embed = new EmbedBuilder();
-           
-      
-
-            if(!Utilities.checkedin.Contains(DCN)){
-            Utilities.DiscordNames += DCN + "\n";
-            Utilities.GameNames += IGN + "\n";
-            embed.WithTitle("Welcome!");
-            embed.WithDescription(Context.User.Mention + " you have succesfully checked in as: \n" + IGN);
-            embed.WithColor(new Color(0, 255, 0));
-            embed.WithFooter(footer => footer.Text = "Current players checked in: " + Utilities.playerscount + "/ 128");
-             embed.WithThumbnailUrl(Context.User.GetAvatarUrl());
-            //embed.WithUrl("https://example.com");
-            embed.WithCurrentTimestamp();
-            Utilities.checkedin.Add(DCN);
+            if(!Utilities.checkedin.Contains(DCN))
+            {
+                Utilities.DiscordNames += DCN + "\n";
+                Utilities.GameNames += IGN + "\n";
+                embed.WithTitle("Welcome!");
+                embed.WithDescription(Context.User.Mention + " you have succesfully checked in as: \n" + IGN);
+                embed.WithColor(new Color(0, 255, 0));
+                embed.WithFooter(footer => footer.Text = "Current players checked in: " + Utilities.playerscount + "/ 128");
+                 embed.WithThumbnailUrl(Context.User.GetAvatarUrl());
+                //embed.WithUrl("https://example.com");
+                embed.WithCurrentTimestamp();
+                Utilities.checkedin.Add(DCN);
             }
 
-            else{
-            embed.WithTitle("WARNING!");
-            embed.WithDescription("You have already checked in!");
+            else
+            {
+                embed.WithTitle("WARNING!");
+                embed.WithDescription("You have already checked in!");
             }
 
            await Context.Channel.SendMessageAsync(null, false, embed.Build());
-
         }
-
 
         [Command("IGN")]
         public async Task IGN()
         {          
             var embed = new EmbedBuilder();
-
             embed.WithTitle("List of Game Names:");
             embed.WithDescription(Utilities.DiscordNames);
             await Context.Channel.SendMessageAsync("", false, embed.Build());
+        } 
+        
+          
+        [Command("echo")]
+        public async Task Echo([Remainder]string message)
+        {
+            var embed = new EmbedBuilder();
+            embed.WithTitle("Echoed message");
+            embed.WithDescription(message);
+            embed.WithColor(new Color(0, 255, 0));
+            await Context.Channel.SendMessageAsync("", false,embed.Build());
+        }
+        
+        public List<string> Roles = new List<string>();
 
-        } */
+        [Command("GenerateTeam")]
+        public async Task JoinVoiceChannel([Remainder]string message)
+        {
+            Roles.Add("Top");
+            Roles.Add("Mid");
+            Roles.Add("Jungle");
+            Roles.Add("ADC");
+            Roles.Add("Support");
 
+            Random r = new Random();
+            int i = 0;
+            string write = "";
 
+            var embed = new EmbedBuilder();
 
-        /*
-         * 
-         *         [Command("echo")]
-                public async Task Echo([Remainder]string message)
-                {
+            int n = Roles.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = r.Next(n + 1);
+                var value = Roles[k];
+                Roles[k] = Roles[n];
+                Roles[n] = value;
+            }
 
-                    var embed = new EmbedBuilder();
+            await Context.Channel.SendMessageAsync(Context.User.Username + "Have randomized a team named: " + message);
+            var VoiceUsers = Context.Guild.GetVoiceChannel(619552205892091927).Users;
+            foreach (var v in VoiceUsers)
+            {
+                write += (v.Mention  +  "   - "  + Roles[i] + "\n");
+                i++;
+            }
 
-                    embed.WithTitle("Echoed message");
-                    embed.WithDescription(message);
-                    embed.WithColor(new Color(0, 255, 0));
+            embed.WithTitle("Team " +  "DD: " + Context.Message.Author + message);
+            embed.WithDescription(write);
+            embed.WithColor(new Color(0, 255, 0));
+            //embed.WithFooter(footer => footer.Text = "I am a footer.");
+            //embed.WithUrl("https://example.com");
+            embed.WithCurrentTimestamp();
 
-                    await Context.Channel.SendMessageAsync("", false,embed.Build());
-
-                }
-                public List<string> Roles = new List<string>();
-         * 
-         * 
-         * 
-                [Command("GenerateTeam")]
-                public async Task JoinVoiceChannel([Remainder]string message)
-                {
-
-                    Roles.Add("Top");
-                    Roles.Add("Mid");
-                    Roles.Add("Jungle");
-                    Roles.Add("ADC");
-                    Roles.Add("Support");
-
-                    Random r = new Random();
-                    int i = 0;
-                    string write = "";
-
-                                var embed = new EmbedBuilder();
-
-
-                        int n = Roles.Count;
-                        while (n > 1)
-                        {
-                            n--;
-                            int k = r.Next(n + 1);
-                            var value = Roles[k];
-                            Roles[k] = Roles[n];
-                            Roles[n] = value;
-                        }
-
-
-
-
-                    //await Context.Channel.SendMessageAsync(Context.User.Username + "Have randomized a team named: " + message);
-                    var VoiceUsers = Context.Guild.GetVoiceChannel(619552205892091927).Users;
-                    foreach (var v in VoiceUsers)
-                    {
-                        write += (v.Mention  +  "   - "  + Roles[i] + "\n");
-
-                        i++;
-                    }
-
-
-
-                    embed.WithTitle("Team " +  "DD: " + Context.Message.Author + message);
-                    embed.WithDescription(write);
-                    embed.WithColor(new Color(0, 255, 0));
-                    //embed.WithFooter(footer => footer.Text = "I am a footer.");
-                    //embed.WithUrl("https://example.com");
-                    embed.WithCurrentTimestamp();
-
-
-                    Roles.Clear();
-                   await Context.Channel.SendMessageAsync(Context.User.Username + " Created:", false, embed.Build());
-
-                }
+            Roles.Clear();
+            await Context.Channel.SendMessageAsync(Context.User.Username + " Created:", false, embed.Build());
+        }
         */
-
         // embed.WithColor(new Color(255, 255, 0));
         // embed.WithThumbnailUrl(Context.User.GetAvatarUrl());
         #endregion

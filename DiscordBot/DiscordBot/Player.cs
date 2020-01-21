@@ -1,4 +1,4 @@
-﻿using System;
+﻿ng System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 namespace DiscordBot
 {
     using System;
-
     using System.Collections;
     using System.Collections.Generic;
 
@@ -18,7 +17,6 @@ namespace DiscordBot
         public List<__Player> InputList = new List<__Player>();
 
         int IDCounter = 0;
-
 
         public string IGN;
         public string DCN;// { get; set; }
@@ -48,79 +46,54 @@ namespace DiscordBot
 
         public void ChangeDiscordName(string OldDiscordName, string NewDiscordName)
         {
-
             foreach (__Player p in PlayersList)
-            {
                 if (p.DCN == OldDiscordName)
-                {
                    p.DCN = NewDiscordName;
-                }
-            }
-
-
         }
 
         public void ChangeGameName(string OldGameName, string NewGameName)
         {
             foreach (__Player p in PlayersList)
-            {
                 if (p.IGN == OldGameName)
-                {
                     p.IGN = NewGameName;
-                }
-            }
         }
 
         public void ChangePoints(string DiscordName, int points)
         {
             foreach (__Player p in PlayersList)
-            {
                 if (p.DCN == DiscordName)
-                {
                     p.Score = points;
-                }
-            }
         }
 
         //ResultNick1
 
-
         public __Player FindPlayerByID(int id)
         {
             foreach (__Player p in PlayersList)
-            {
                 if (p.ID == id)
-                {
                     return p;
-                }
                 else return null;
-            }
+
             return null;
         }
 
         public __Player FindPlayerByIGN(string IGN)
         {
             foreach (__Player p in PlayersList)
-            {
                 if (p.IGN == IGN)
-                {
                     return p;
-                }
                 else return null;
-            }
+
             return null;
         }
 
         public __Player FindPlayerByDCN(string DCN)
         {
             foreach (__Player p in PlayersList)
-            {
                 if (p.DCN == DCN)
-                {
                     return p;
-                }
                 else return null;
-            }
+
             return null;
         }
 
@@ -128,12 +101,9 @@ namespace DiscordBot
         public void AssignScores(string nickname, int points)
         {
             foreach (__Player p in PlayersList)
-            {
                 if (p.IGN == nickname)
-                {
                     p.Score += points;
-                }
-            }
+
         }
 
         public List<__Player> RandomizePlayers()
@@ -141,8 +111,6 @@ namespace DiscordBot
             Shuffle(InputList);
             return InputList;
         }
-
-
 
         public void ClearLists()
         {
@@ -206,17 +174,11 @@ namespace DiscordBot
         // Start is called before the first frame update
         void Start()
         {
-
         }
 
         // Update is called once per frame
         void Update()
         {
-
         }
-
-
     }
-
-
 }
