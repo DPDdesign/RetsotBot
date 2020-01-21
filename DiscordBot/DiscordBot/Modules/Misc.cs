@@ -483,10 +483,3 @@ namespace DiscordBot.Modules
         #endregion
     }
 }
-
-/* 
-*   3:15PM,EST 1/21/2020
-*   -- Cleaned up white space and improved alignment accross all functions   
-*   -- Removed unneccisary brackets
-
-*/
