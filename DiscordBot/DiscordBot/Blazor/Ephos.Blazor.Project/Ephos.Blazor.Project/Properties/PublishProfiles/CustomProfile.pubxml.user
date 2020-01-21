@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Ten plik jest wykorzystywany przez proces publikowania/pakowania projektu internetowego. Możesz dostosować zachowanie tego procesu
+ poprzez edycję tego pliku MSBuild. Aby dowiedzieć się więcej o tym działaniu, odwiedź stronę https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAra3KQJpy5kGtULXgFGq1MwAAAAACAAAAAAAQZgAAAAEAACAAAAAlprlcECVbFDP++d7n7k4vcwxYUkujw3sqPnKpWFIbfgAAAAAOgAAAAAIAACAAAACt4UyvoGlcZ3uNyjH/M9TBG6/I4V5HAERSilMFY7ohNCAAAACgDuAeNrdE8CNWrVH19gFzS/T0RLDINL4Y5LfX3ItrrEAAAACqesUa+KD6Mqn1564Vy3Z++xcZtXlYdN/wC77ld5GpDaFt5ToEy9VE4wDQcPcehvozzII5olxppHd4jf/FvP0Y</EncryptedPassword>
+    <_PublishTargetUrl>ftp://hosting1941502.online.pro</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="appsettings.Development.json">
+      <publishTime>01/19/2020 20:21:31</publishTime>
+    </File>
+    <File Include="appsettings.json">
+      <publishTime>01/19/2020 20:21:31</publishTime>
+    </File>
+    <File Include="Ephos.Blazor.Project.deps.json">
+      <publishTime>01/20/2020 00:48:36</publishTime>
+    </File>
+    <File Include="Ephos.Blazor.Project.dll">
+      <publishTime>01/20/2020 00:48:36</publishTime>
+    </File>
+    <File Include="Ephos.Blazor.Project.exe">
+      <publishTime>01/20/2020 00:48:36</publishTime>
+    </File>
+    <File Include="Ephos.Blazor.Project.pdb">
+      <publishTime>01/20/2020 00:48:36</publishTime>
+    </File>
+    <File Include="Ephos.Blazor.Project.runtimeconfig.json">
+      <publishTime>01/19/2020 21:30:09</publishTime>
+    </File>
+    <File Include="Ephos.Blazor.Project.Views.dll">
+      <publishTime>01/20/2020 00:48:36</publishTime>
+    </File>
+    <File Include="Ephos.Blazor.Project.Views.pdb">
+      <publishTime>01/20/2020 00:48:36</publishTime>
+    </File>
+    <File Include="web.config">
+      <publishTime>01/20/2020 00:48:38</publishTime>
+    </File>
+    <File Include="wwwroot/css/bootstrap/bootstrap.min.css">
+      <publishTime>01/19/2020 20:21:31</publishTime>
+    </File>
+    <File Include="wwwroot/css/bootstrap/bootstrap.min.css.map">
+      <publishTime>01/19/2020 20:21:31</publishTime>
+    </File>
+    <File Include="wwwroot/css/open-iconic/FONT-LICENSE">
+      <publishTime>01/19/2020 20:21:31</publishTime>
+    </File>
+    <File Include="wwwroot/css/open-iconic/font/css/open-iconic-bootstrap.min.css">
+      <publishTime>01/19/2020 20:21:31</publishTime>
+    </File>
+    <File Include="wwwroot/css/open-iconic/font/fonts/open-iconic.eot">
+      <publishTime>01/19/2020 20:21:31</publishTime>
+    </File>
+    <File Include="wwwroot/css/open-iconic/font/fonts/open-iconic.otf">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="wwwroot/css/open-iconic/font/fonts/open-iconic.svg">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="wwwroot/css/open-iconic/font/fonts/open-iconic.ttf">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="wwwroot/css/open-iconic/font/fonts/open-iconic.woff">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="wwwroot/css/open-iconic/ICON-LICENSE">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="wwwroot/css/open-iconic/README.md">
+      <publishTime>01/19/2020 20:21:31</publishTime>
+    </File>
+    <File Include="wwwroot/css/site.css">
+      <publishTime>01/19/2020 20:21:31</publishTime>
+    </File>
+    <File Include="wwwroot/css/spectre-exp.css">
+      <publishTime>12/23/2018 07:05:04</publishTime>
+    </File>
+    <File Include="wwwroot/css/spectre-exp.min.css">
+      <publishTime>12/23/2018 07:05:04</publishTime>
+    </File>
+    <File Include="wwwroot/css/spectre-icons.css">
+      <publishTime>12/23/2018 07:05:04</publishTime>
+    </File>
+    <File Include="wwwroot/css/spectre-icons.min.css">
+      <publishTime>12/23/2018 07:05:04</publishTime>
+    </File>
+    <File Include="wwwroot/css/spectre.css">
+      <publishTime>12/23/2018 07:05:04</publishTime>
+    </File>
+    <File Include="wwwroot/css/spectre.min.css">
+      <publishTime>12/23/2018 07:05:04</publishTime>
+    </File>
+    <File Include="wwwroot/favicon.ico">
+      <publishTime>01/19/2020 20:21:31</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

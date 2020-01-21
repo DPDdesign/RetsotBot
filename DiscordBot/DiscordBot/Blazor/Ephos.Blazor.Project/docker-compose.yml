@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  ephos.blazor.project:
+    image: ${DOCKER_REGISTRY-}ephosblazorproject
+    build:
+      context: .
+      dockerfile: Ephos.Blazor.Project\Dockerfile
