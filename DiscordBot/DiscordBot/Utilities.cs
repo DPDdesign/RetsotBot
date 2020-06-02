@@ -431,17 +431,12 @@ namespace DiscordBot
         public static void SetPoints()
 
         {   
-            Console.WriteLine("Function started");
             List <int> listofpoints = new List<int>();
-            listofpoints = Program.ReadEntries();
-            //IList<IList<Object>> listofpoints = Program.ReadFromSpreadSheet("R1","A1:E");
+            listofpoints = Program.ReadEntries();//IList<IList<Object>> listofpoints = Program.ReadFromSpreadSheet("R1","A1:E");
            // listofpoints.Add(5);    
            int x = 0;
-            Console.WriteLine("red values");
             foreach (__Player p in RandomPlayers)
             {
-                Console.WriteLine("-------------");
-                Console.WriteLine(listofpoints[x]);
                 p.Score+=listofpoints[x]; 
                 Console.WriteLine(p.Score);
                 x++;

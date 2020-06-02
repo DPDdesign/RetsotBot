@@ -147,7 +147,7 @@ namespace DiscordBot
         public static List<int> ReadEntries(){
         // Define request parameters.
           
-            string range = "R" + Utilities.roundnumber.ToString() + "!A4:D";
+            String range = "R1!A4:D";
             SpreadsheetsResource.ValuesResource.GetRequest request =
                     service.Spreadsheets.Values.Get(spreadsheetId, range);
 
@@ -164,7 +164,6 @@ namespace DiscordBot
                 foreach (var row in values)
                 {
                     ListToReturn.Add(System.Convert.ToInt32(row[3]));
-                    Console.WriteLine(row[3]);
                     // Print columns A and E, which correspond to indices 0 and 4.
                     //Console.WriteLine(row[3]);
                    // Console.WriteLine(row[3]);
@@ -178,7 +177,7 @@ namespace DiscordBot
                 Console.WriteLine("No data found.");
             }
             //Console.Read();
-            Console.WriteLine("ENDED FUNCTION");
+
             return ListToReturn;
          }
 
